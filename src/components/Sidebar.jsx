@@ -10,7 +10,7 @@ const Sidebar = () => {
         <nav className='flex flex-col gap-7'>
             {STEPS.map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
-                    <div className={`border-2 border-white text-white w-9 h-9 flex items-center justify-center rounded-full ${step > index && "bg-blue-100"}`}>
+                    <div className={`border-2 border-white text-white w-9 h-9 flex items-center justify-center rounded-full ${step === index + 1 && "bg-blue-100"}`}>
                         <span className={`font-bold ${step > index && "text-blue-950"}`}>{index + 1}</span>
                     </div>
 

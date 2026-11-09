@@ -2,6 +2,7 @@ import { Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
+import PickAddOns from "./components/PickAddOns";
 
 const App = () => {
 	return (
@@ -12,6 +13,7 @@ const App = () => {
 					<Routes>
 						<Route path='/' element={<PersonalInfo />} />
 						<Route path='/step2' element={<SelectPlan />} />
+						<Route path='/step3' element={<PickAddOns />} />
 					</Routes>
 
           <div className="">
