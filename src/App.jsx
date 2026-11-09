@@ -3,6 +3,7 @@ import Sidebar from "./components/Sidebar";
 import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
 import PickAddOns from "./components/PickAddOns";
+import FinishingUp from "./components/FinishingUp";
 
 const App = () => {
 	return (
@@ -14,6 +15,7 @@ const App = () => {
 						<Route path='/' element={<PersonalInfo />} />
 						<Route path='/step2' element={<SelectPlan />} />
 						<Route path='/step3' element={<PickAddOns />} />
+						<Route path='/step4' element={<FinishingUp />} />
 					</Routes>
 
           <div className="">
