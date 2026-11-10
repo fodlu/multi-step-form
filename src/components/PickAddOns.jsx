@@ -1,11 +1,10 @@
-import React from "react";
 import Header from "./Header";
 import { UseApp } from "../context/AppContext";
 
 const ADDONS = [
 	{
 		title: "Online service",
-		detail: "Add-ons help enhance your gaming experience.",
+		detail: "Access to multiplayer games.",
 		price: 1,
 		annualPrice: 10,
 	},
@@ -24,33 +23,54 @@ const ADDONS = [
 ];
 
 const PickAddOns = () => {
-	const { plan } = UseApp();
+	const { userInfo, setUserInfo } = UseApp();
+	console.log(userInfo.addOns);
+	console.log(userInfo);
 	return (
-		<div>
+		<>
 			<Header
 				title='Pick add-ons'
 				detail='Add-ons help enhance your gaming experience.'
 			/>
 
-			<div className=''>
+			<div className='flex flex-col gap-5'>
 				{ADDONS.map((item, index) => (
-					<div className='' key={index}>
-						<div className=''>
-							<input type='checkbox' name='check' id='check' />
+					<div
+						className={`border-2 border-blue-100 p-5 rounded-lg flex justify-between items-center ${userInfo.addOns.includes(item.title) && "bg-blue-50 border-purple-600"} hover:border-purple-600 cursor-pointer`}
+						key={index}
+						onClick={() =>
+							userInfo.addOns.includes(item.title) ?
+								setUserInfo((prev) => ({
+									...prev,
+									addOns: prev.addOns.filter((n) => n !== item.title),
+								}))
+							:	setUserInfo((prev) => ({
+									...prev,
+									addOns: [...prev.addOns, item.title],
+								}))
+						}>
+						<div className='flex gap-5'>
+							<input
+								type='checkbox'
+								name='check'
+								checked={userInfo.addOns.includes(item.title)}
+								id='check'
+							/>
 							<div className=''>
-								<p className=''>{item.title}</p>
-								<p className=''>{item.detail}</p>
+								<p className='font-Ubuntu-Bold text-blue-950'>{item.title}</p>
+								<p className='text-gray-500'>{item.detail}</p>
 							</div>
-
-							<p className=''>
-								+${plan === "monthly" ? item.price : item.annualPrice}/
-								{plan === "monthly" ? "mo" : "yr"}
-							</p>
 						</div>
+
+						<p className=''>
+							+$
+							{userInfo.duration === "monthly" ? item.price : item.annualPrice}/
+							{userInfo.duration === "monthly" ? "mo" : "yr"}
+						</p>
 					</div>
 				))}
 			</div>
-		</div>
+		</>
 	);
 };
 

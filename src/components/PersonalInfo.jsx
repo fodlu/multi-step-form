@@ -2,10 +2,13 @@ import Header from "./Header";
 
 const PersonalInfo = () => {
 	return (
-		<div>
-            <Header title="Personal Info" detail="Please provide your name, email address, and phone number." />
+		<>
+			<Header
+				title='Personal Info'
+				detail='Please provide your name, email address, and phone number.'
+			/>
 
-			<form className=''>
+			<form className='flex flex-col gap-4 form h-full'>
 				<div className=''>
 					<label htmlFor='name' className=''>
 						Name
@@ -19,7 +22,7 @@ const PersonalInfo = () => {
 				</div>
 				<div className=''>
 					<label htmlFor='name' className=''>
-						email
+						email address
 					</label>
 					<input
 						type='email'
@@ -40,7 +43,7 @@ const PersonalInfo = () => {
 					/>
 				</div>
 			</form>
-		</div>
+		</>
 	);
 };
 

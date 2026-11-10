@@ -1,1 +1,56 @@
 @import "tailwindcss";
+
+@font-face {
+	font-family: "Ubuntu-Bold";
+	src: url("./assets/fonts/Ubuntu-Bold.ttf");
+}
+@font-face {
+	font-family: "Ubuntu-Medium";
+	src: url("./assets/fonts/Ubuntu-Medium.ttf");
+}
+@font-face {
+	font-family: "Ubuntu-Regular";
+	src: url("./assets/fonts/Ubuntu-Regular.ttf");
+}
+
+@theme {
+	--font-Ubuntu-Bold:"Ubuntu-Bold";
+    --font-Ubuntu-Medium: "Ubuntu-Medium";
+    --font-Ubuntu-Regular: "Ubuntu-Regular";
+}
+.attribution {
+	font-size: 0.6875rem;
+	text-align: center;
+}
+.attribution a {
+	color: hsl(228, 45%, 44%);
+}
+
+.form{
+    display: flex;
+
+    &>div{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        label{
+            color: hsl(213, 96%, 18%);
+            font-family: var(--font-Ubuntu-Medium);
+            text-transform: capitalize;
+        }
+
+        input {
+            border: 2px solid hsl(229, 24%, 87%);
+            padding: .5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            color: hsl(213, 96%, 18%);
+            font-family: var(--font-Ubuntu-Medium);
+
+            &:active{
+                border: 1px solid hsl(243, 100%, 62%);
+            }
+        }
+    }
+}
