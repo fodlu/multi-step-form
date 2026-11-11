@@ -1,4 +1,5 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import PersonalInfo from "./components/PersonalInfo";
 import SelectPlan from "./components/SelectPlan";
@@ -8,14 +9,57 @@ import ThankYou from "./components/ThankYou";
 import { UseApp } from "./context/AppContext";
 
 const App = () => {
-	const { step, setStep } = UseApp();
+	const { step, setStep, userInfo, setFormError } = UseApp();
 	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		const path = location.pathname;
+		if (path === "/" || path === "/step1") setStep(1);
+		else if (path === "/step2") setStep(2);
+		else if (path === "/step3") setStep(3);
+		else if (path === "/step4") setStep(4);
+		else if (path === "/step5") setStep(5);
+	}, [location.pathname, setStep]);
+
+	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+	const handleNext = () => {
+		setFormError({});
+		if (!userInfo.name) {
+			setFormError((prev) => ({ ...prev, name: "This field is required" }));
+			return;
+		}
+		if (!userInfo.email) {
+			setFormError((prev) => ({ ...prev, email: "This field is required" }));
+			return;
+		}
+		if (!emailRegex.test(userInfo.email)) {
+			setFormError((prev) => ({ ...prev, email: "Email is invalid" }));
+			return;
+		}
+		if (!userInfo.phone) {
+			setFormError((prev) => ({ ...prev, phone: "This field is required" }));
+			return;
+		}
+		const nextStep = step + 1;
+		setStep(nextStep);
+		navigate(`/step${nextStep}`);
+	};
+
+	const handleBack = () => {
+		const prevStep = step - 1;
+		setStep(prevStep);
+		// If going back from step 2, go to root "/" or "/step1"
+		navigate(prevStep === 1 ? "/" : `/step${prevStep}`);
+	};
+
 	return (
 		<div className='bg-blue-200 h-screen flex items-center justify-center flex-col font-Ubuntu-Regular'>
 			<div className='bg-white p-3 rounded-lg shadow-md grid grid-cols-[30%_70%] h-5/6 w-3/5'>
 				<Sidebar />
 				<div className='px-17 py-8 min-h-full flex flex-col'>
-					<div className=' flex-1 h-full'>
+					<div className='flex-1 h-full'>
 						<Routes>
 							<Route path='/' element={<PersonalInfo />} />
 							<Route path='/step1' element={<PersonalInfo />} />
@@ -29,19 +73,13 @@ const App = () => {
 					{step !== 5 && (
 						<div className='flex w-full justify-between pt-15'>
 							<button
-								onClick={() => {
-									setStep((prev) => prev - 1);
-									navigate(`/step${step - 1}`);
-								}}
-								className={`cursor-pointer text-gray-500 font-Ubuntu-Medium ${step === 1 && "hidden"} cursor-pointer`}
+								onClick={handleBack}
+								className={`cursor-pointer text-gray-500 font-Ubuntu-Medium ${step === 1 && "hidden"}`}
 								type='button'>
 								Go Back
 							</button>
 							<button
-								onClick={() => {
-									setStep((prev) => prev + 1);
-									navigate(`/step${step + 1}`);
-								}}
+								onClick={handleNext}
 								type='button'
 								className='ml-auto bg-blue-950 py-2 px-4 text-blue-50 rounded-lg cursor-pointer'>
 								{step === 4 ? "Confirm" : "Next Step"}

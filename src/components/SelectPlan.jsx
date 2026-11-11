@@ -14,6 +14,28 @@ const PLANS = [
 
 const SelectPlan = () => {
 	const { userInfo, setUserInfo } = UseApp();
+
+	const calculatePrice = (title, duration) => {
+		const plan = PLANS.find((n) => n.title === title) || PLANS[0];
+		return duration === "monthly" ? plan.price : plan.annualPrice;
+	};
+
+	const handleSelectPlan = (itemTitle) => {
+		setUserInfo((prev) => ({
+			...prev,
+			planTitle: itemTitle,
+			planPrice: calculatePrice(itemTitle, prev.duration),
+		}));
+	};
+
+	const handleDurationChange = (newDuration) => {
+		setUserInfo((prev) => ({
+			...prev,
+			duration: newDuration,
+			planPrice: calculatePrice(prev.planTitle, newDuration),
+		}));
+	};
+
 	return (
 		<>
 			<Header
@@ -24,14 +46,16 @@ const SelectPlan = () => {
 			<div className='flex flex-col gap-10 w-full'>
 				<div className='flex gap-5 h-47'>
 					{PLANS.map((item, index) => (
-						<div
-							onClick={() =>
-								setUserInfo((prev) => ({ ...prev, plan: item.title, planPrice: item.price, planAnnualPrice: item.annualPrice }))
-							}
-							className={`flex-1 shadow-sm p-4 rounded-lg flex flex-col justify-between cursor-pointer hover:border-2 hover:border-purple-600 ${userInfo.plan === item.title && "border-2 border-purple-600 bg-blue-50"}`}
+						<button
+							type='button'
+							onClick={() => handleSelectPlan(item.title)}
+							className={`flex-1 shadow-sm p-4 rounded-lg flex flex-col justify-between cursor-pointer hover:border-2 hover:border-purple-600 ${
+								userInfo.planTitle === item.title &&
+								"border-2 border-purple-600 bg-blue-50"
+							}`}
 							key={index}>
-							<img src={item.img} alt={item.name} className='w-10' />
-							<div className=''>
+							<img src={item.img} alt={item.title} className='w-10' />
+							<div className='text-left'>
 								<p className='capitalize font-Ubuntu-Bold text-blue-950'>
 									{item.title}
 								</p>
@@ -47,31 +71,43 @@ const SelectPlan = () => {
 									<p className='text-blue-950'>2 months free</p>
 								)}
 							</div>
-						</div>
+						</button>
 					))}
 				</div>
 
 				<div className='p-3 bg-blue-50 flex items-center justify-center gap-2 text-gray-500 rounded-lg'>
-					<label
-						htmlFor='monthly'
-						onClick={() =>
-							setUserInfo((prev) => ({ ...prev, duration: "monthly" }))
-						}
-						className={`${userInfo.duration === "monthly" && "font-Ubuntu-Medium text-blue-950"}`}>
+					<span
+						onClick={() => handleDurationChange("monthly")}
+						className={`${
+							userInfo.duration === "monthly" &&
+							"font-Ubuntu-Medium text-blue-950"
+						} cursor-pointer`}>
 						Monthly
-					</label>
-					<div className=''>
-						<input type='radio' name='plan' id='monthly' value='monthly' />
-						<input type='radio' name='plan' id='yearly' value='yearly' />
+					</span>
+					<div className='flex gap-2'>
+						<input
+							type='radio'
+							name='plan'
+							id='monthly'
+							checked={userInfo.duration === "monthly"}
+							onChange={() => handleDurationChange("monthly")}
+						/>
+						<input
+							type='radio'
+							name='plan'
+							id='yearly'
+							checked={userInfo.duration === "yearly"}
+							onChange={() => handleDurationChange("yearly")}
+						/>
 					</div>
-					<label
-						htmlFor='yearly'
-						onClick={() =>
-							setUserInfo((prev) => ({ ...prev, duration: "yearly" }))
-						}
-						className={`${userInfo.duration === "yearly" && "font-Ubuntu-Medium text-blue-950"}`}>
+					<span
+						onClick={() => handleDurationChange("yearly")}
+						className={`${
+							userInfo.duration === "yearly" &&
+							"font-Ubuntu-Medium text-blue-950"
+						} cursor-pointer`}>
 						Yearly
-					</label>
+					</span>
 				</div>
 			</div>
 		</>

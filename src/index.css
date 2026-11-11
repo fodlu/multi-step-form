@@ -41,12 +41,6 @@
         }
 
         input {
-            border: 2px solid hsl(229, 24%, 87%);
-            padding: .5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            color: hsl(213, 96%, 18%);
-            font-family: var(--font-Ubuntu-Medium);
 
             &:active{
                 border: 1px solid hsl(243, 100%, 62%);
