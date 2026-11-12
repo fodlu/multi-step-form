@@ -1,6 +1,9 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
+import { UseApp } from "../context/AppContext";
 
 const ThankYou = () => {
+	const navigate = useNavigate();
+	const { setUserInfo } = UseApp();
 	return (
 		<div className='flex flex-col gap-5 items-center justify-center h-full'>
 			<img src='images/icon-thank-you.svg' alt='thank you' className='w-15' />
@@ -10,6 +13,23 @@ const ThankYou = () => {
 				platform. If you ever need support, please feel free to email us at
 				support@loremgaming.com.
 			</p>
+			<button
+				type='button'
+				onClick={() => {
+					setUserInfo({
+						name: "",
+						email: "",
+						phone: "",
+						planTitle: "arcade",
+						planPrice: 9,
+						duration: "monthly",
+						addOns: [],
+					});
+					navigate("/");
+				}}
+				className='bg-blue-950 text-blue-50 p-2 px-5 rounded-lg cursor-pointer font-bold'>
+				Go back
+			</button>
 		</div>
 	);
 };

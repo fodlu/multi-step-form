@@ -55,11 +55,11 @@ const App = () => {
 	};
 
 	return (
-		<div className='bg-blue-200 h-screen flex items-center justify-center flex-col font-Ubuntu-Regular'>
-			<div className='bg-white p-3 rounded-lg shadow-md grid grid-cols-[30%_70%] h-5/6 w-3/5'>
+		<div className='flex flex-col justify-between min-h-screen bg-blue-50 lg:h-screen'>
+			<div className='flex flex-col lg:grid lg:grid-cols-[25%_75%] lg:w-5/7 lg:h-[80%] m-auto lg:bg-white p-5 rounded-xl'>
 				<Sidebar />
-				<div className='px-17 py-8 min-h-full flex flex-col'>
-					<div className='flex-1 h-full'>
+				<div className='flex flex-col -mt-30 lg:m-0 gap-10'>
+					<div className='bg-white mx-5 p-5 rounded-xl shadow-lg h-full'>
 						<Routes>
 							<Route path='/' element={<PersonalInfo />} />
 							<Route path='/step1' element={<PersonalInfo />} />
@@ -71,7 +71,7 @@ const App = () => {
 					</div>
 
 					{step !== 5 && (
-						<div className='flex w-full justify-between pt-15'>
+						<div className='flex justify-between bg-white py-4 px-5'>
 							<button
 								onClick={handleBack}
 								className={`cursor-pointer text-gray-500 font-Ubuntu-Medium ${step === 1 && "hidden"}`}

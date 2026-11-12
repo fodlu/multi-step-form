@@ -21,15 +21,18 @@ const PersonalInfo = () => {
 						required
 						id='name'
 						value={userInfo.name}
-						aria-describedby="nameError"
+						aria-describedby='nameError'
 						onChange={(e) =>
 							setUserInfo((prev) => ({ ...prev, name: e.target.value }))
 						}
-						className={`border-2 border-blue-200 p-2 rounded-lg cursor-pointer text-blue-950 font-Ubuntu-Bold ${formError.name && "border-red-500"}`}
+						className={`border-2 border-blue-200 p-2 rounded-lg cursor-pointer text-blue-950 font-Ubuntu-Bold ${formError.name && !userInfo.name.length && "border-red-500"}`}
 						placeholder='e.g. Stephen King'
 					/>
-					{formError.name && (
-						<p id="nameError" role="alert" className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
+					{formError.name && !userInfo.name.length && (
+						<p
+							id='nameError'
+							role='alert'
+							className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
 							{formError.name}
 						</p>
 					)}
@@ -43,7 +46,7 @@ const PersonalInfo = () => {
 						required
 						id='email'
 						value={userInfo.email}
-						aria-describedby="emailError"
+						aria-describedby='emailError'
 						onChange={(e) =>
 							setUserInfo((prev) => ({ ...prev, email: e.target.value }))
 						}
@@ -51,7 +54,10 @@ const PersonalInfo = () => {
 						placeholder='e.g. stephenking@lorem.com'
 					/>
 					{formError.email && (
-						<p id="emailError"role="alert"  className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
+						<p
+							id='emailError'
+							role='alert'
+							className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
 							{formError.email}
 						</p>
 					)}
@@ -63,8 +69,8 @@ const PersonalInfo = () => {
 					<input
 						type='tel'
 						id='tel'
-						aria-describedby="phoneError"
-						className={`border-2 border-blue-200 p-2 rounded-lg cursor-pointer text-blue-950 font-Ubuntu-Bold ${formError.phone && "border-red-500"}`}
+						aria-describedby='phoneError'
+						className={`border-2 border-blue-200 p-2 rounded-lg cursor-pointer text-blue-950 font-Ubuntu-Bold ${formError.phone && !userInfo.phone.length && "border-red-500"}`}
 						required
 						value={userInfo.phone}
 						onChange={(e) =>
@@ -72,8 +78,11 @@ const PersonalInfo = () => {
 						}
 						placeholder='e.g. +1 234 567 890'
 					/>
-					{formError.phone && (
-						<p id="phoneError" role="alert" className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
+					{formError.phone && !userInfo.phone.length && (
+						<p
+							id='phoneError'
+							role='alert'
+							className='text-red-500 font-Ubuntu-Bold absolute right-0 text-xs top-2'>
 							{formError.phone}
 						</p>
 					)}

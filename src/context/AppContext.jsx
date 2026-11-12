@@ -18,10 +18,23 @@ export const AppProvider = ({ children }) => {
 		planTitle: "arcade",
 		planPrice: 9,
 		duration: "monthly",
-		addOns: [],
+		addOns: [
+			{
+				title: "Online service",
+				detail: "Access to multiplayer games.",
+				price: 1,
+				annualPrice: 10,
+			},
+			{
+				title: "Larger storage",
+				detail: "Extra 1TB of cloud save",
+				price: 2,
+				annualPrice: 20,
+			},
+		],
 	});
 
-	console.log(formError)
+	console.log(userInfo);
 
 	const getCurrentPlanPrice = () => {
 		const plan = PLANS.find((p) => p.title === userInfo.planTitle) || PLANS[0];

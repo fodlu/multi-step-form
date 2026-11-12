@@ -43,13 +43,13 @@ const SelectPlan = () => {
 				detail='You have the option of monthly or yearly billing.'
 			/>
 
-			<div className='flex flex-col gap-10 w-full'>
-				<div className='flex gap-5 h-47'>
+			<div className='flex flex-col gap-5'>
+				<div className='flex flex-col lg:flex-row gap-5'>
 					{PLANS.map((item, index) => (
 						<button
 							type='button'
 							onClick={() => handleSelectPlan(item.title)}
-							className={`flex-1 shadow-sm p-4 rounded-lg flex flex-col justify-between cursor-pointer hover:border-2 hover:border-purple-600 ${
+							className={`flex-1 border-2 border-blue-50 shadow-sm p-4 rounded-lg flex lg:flex-col gap-5 lg:justify-between cursor-pointer hover:border-2 hover:border-purple-600 ${
 								userInfo.planTitle === item.title &&
 								"border-2 border-purple-600 bg-blue-50"
 							}`}
@@ -74,13 +74,12 @@ const SelectPlan = () => {
 						</button>
 					))}
 				</div>
-
-				<div className='p-3 bg-blue-50 flex items-center justify-center gap-2 text-gray-500 rounded-lg'>
+				<div className='p-3 bg-blue-50 flex items-center justify-center gap-2 text-gray-500 rounded-lg text-lg'>
 					<span
 						onClick={() => handleDurationChange("monthly")}
 						className={`${
 							userInfo.duration === "monthly" &&
-							"font-Ubuntu-Medium text-blue-950"
+							"font-Ubuntu-Bold text-blue-950"
 						} cursor-pointer`}>
 						Monthly
 					</span>
@@ -103,8 +102,7 @@ const SelectPlan = () => {
 					<span
 						onClick={() => handleDurationChange("yearly")}
 						className={`${
-							userInfo.duration === "yearly" &&
-							"font-Ubuntu-Medium text-blue-950"
+							userInfo.duration === "yearly" && "font-Ubuntu-Bold text-blue-950"
 						} cursor-pointer`}>
 						Yearly
 					</span>
